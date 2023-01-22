@@ -1,0 +1,12 @@
+{
+  "name": "dc-con-mirror",
+  "version": "1.0.0",
+  "main": "crwaler/index.js",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "aws-sdk": "^2.1299.0",
+    "axios": "^1.2.3",
+    "cheerio": "^1.0.0-rc.12"
+  }
+}
