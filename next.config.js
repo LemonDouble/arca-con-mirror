@@ -6,8 +6,8 @@ const prefix = isProduction? "https://lemondouble.github.io/arca-con-mirror/" : 
 const nextConfig = {
   reactStrictMode: false,
   images: {
-    loader: 'imgix',
-    path: prefix,
+    unoptimized: true,
+    domains : ['dqbobx5h4f3nm.cloudfront.net']
   },
   assetPrefix: prefix
 
