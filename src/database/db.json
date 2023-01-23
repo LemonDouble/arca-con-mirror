@@ -475,6 +475,12 @@
         "657055.jpg",
         "657057.jpg"
       ]
+    },
+    {
+      "arcaConId": 33,
+      "isDeleted": true,
+      "title": "",
+      "srcList": []
     }
   ]
 }
