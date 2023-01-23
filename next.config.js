@@ -1,20 +1,16 @@
-const isGithubActions = process.env.GITHUB_ACTIONS || false
+const isProduction = process.env.NODE_ENV === 'production'
 
-let basePath = ''
-
-if (isGithubActions) {
-  const repo = process.env.GITHUB_REPOSITORY.replace(/.*?\//, '')
-
-  basePath = `/${repo}`
-}
+const prefix = isProduction? "https://lemondouble.github.io/arca-con-mirror/" : ""
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
   images: {
-    unoptimized: true,
+    loader: 'imgix',
+    path: prefix,
   },
-  basePath: basePath,
+  assetPrefix: prefix
+
 }
 
 module.exports = nextConfig
