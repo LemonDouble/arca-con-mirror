@@ -20,10 +20,10 @@ export default function SingleImageList(props : Props) {
 
             <ImageList sx={{
                 width: "80vw",
-                height: 100,
+                height: 120,
                 gridAutoFlow: "column",
                 gridTemplateColumns: "repeat(auto-fit, 100px) !important",
-                gridAutoColumns: "minmax(100px, 1fr)"
+                gridAutoColumns: "minmax(100px, 1fr)",
             }} cols={1} rowHeight={100}>
                 {props.imageList.map((item) => (
                     <ImageListItem key={item.src}>
