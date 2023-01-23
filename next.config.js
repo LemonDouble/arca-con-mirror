@@ -1,26 +1,20 @@
-/** @type {import('next').NextConfig} */
+const isGithubActions = process.env.GITHUB_ACTIONS || false
 
-// https://www.viget.com/articles/host-build-and-deploy-next-js-projects-on-github-pages/
-const production = process.env.NODE_ENV === "production";
-let assetPrefix = ''
-let basePath = '/'
+let basePath = ''
 
-if (production) {
-  const repo = "arca-con-mirror"
+if (isGithubActions) {
+  const repo = process.env.GITHUB_REPOSITORY.replace(/.*?\//, '')
 
-  assetPrefix = `/${repo}/`
   basePath = `/${repo}`
 }
 
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-  assetPrefix: assetPrefix,
-  basePath: basePath,
-  reactStrictMode: true,
-
+  reactStrictMode: false,
   images: {
     unoptimized: true,
-    loader: "custom"
   },
+  basePath: basePath,
 }
 
 module.exports = nextConfig
