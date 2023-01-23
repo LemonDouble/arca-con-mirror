@@ -30,7 +30,7 @@ export async function saveDatabase(db : database){
     // 아카콘 ID 기준 오름차순 정렬
     db.crawled.sort((a,b) => a.arcaConId - b.arcaConId)
 
-    fs.writeFileSync(databaseLocation, JSON.stringify(db))
+    fs.writeFileSync(databaseLocation, JSON.stringify(db, null, 2))
 }
 
 function removeDuplicate(list : crawledData[]){
