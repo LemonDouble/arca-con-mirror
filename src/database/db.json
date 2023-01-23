@@ -615,6 +615,12 @@
         "657270.png",
         "657271.png"
       ]
+    },
+    {
+      "arcaConId": 41,
+      "isDeleted": true,
+      "title": "",
+      "srcList": []
     }
   ]
 }
