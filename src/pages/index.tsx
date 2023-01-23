@@ -52,6 +52,7 @@ export default function Home() {
               <Stack alignItems="center">
                   <Typography variant="h1">아카콘 미러</Typography>
                   <Typography variant="subtitle1">순서대로 긁어오는 방식이라, 별도 필터링은 안 됩니다!</Typography>
+                  <Typography variant="subtitle1">그리고 혹시 ZIP 다운로드가 안 되면, 새로고침 한번만 해 주세요.</Typography>
               </Stack>
           </Box>
           <Box>
