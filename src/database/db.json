@@ -530,6 +530,25 @@
       "isDeleted": true,
       "title": "",
       "srcList": []
+    },
+    {
+      "arcaConId": 38,
+      "isDeleted": false,
+      "title": "5.18 잊지 맙시다",
+      "srcList": [
+        "657272.jpeg",
+        "657274.jpeg",
+        "657276.jpeg",
+        "657277.jpeg",
+        "657278.jpeg",
+        "657279.jpeg",
+        "657281.jpeg",
+        "657282.jpeg",
+        "657283.jpeg",
+        "657284.jpeg",
+        "657286.jpg",
+        "657287.jpeg"
+      ]
     }
   ]
 }
