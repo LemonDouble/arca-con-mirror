@@ -1,50 +1,80 @@
-import {useEffect, useState} from "react";
-import axios from "axios";
-import {Stack, Typography} from '@mui/material';
+import React, {useEffect, useState} from "react";
+import {Pagination, Stack, TextField, Typography} from '@mui/material';
 import SingleImageList from "@/components/SingleImageList";
+import {Box} from "@mui/system";
+import {ArcaConData, getImageDataFromDB} from "@/common/api";
+import Head from 'next/head';
 
-export interface database {
-    crawled : crawledData[]
-}
-
-export interface crawledData {
-    arcaConId : number,
-
-    isDeleted : boolean,
-    title : string,
-    srcList : string[]
-}
 export default function Home() {
+    const [fetchedImageData, setFetchedImageData] = useState<ArcaConData[]>([])
+    const [displayImageData, setDisplayImageData] = useState<ArcaConData[]>([])
+    const [currentPage, setCurrentPage] = useState<number>(1)
+    const [maxPage, setMaxPage] = useState<number>(10)
+    const pageSize = 10
 
-  const [dbData, setDbData] = useState<database>()
+    const [searchKeyword, setSearchKeyword] = useState<string>("")
+
   useEffect(() => {
-        async function fetchDB() {
-          const data = (await axios.get("https://raw.githubusercontent.com/LemonDouble/arca-con-mirror/main/src/database/db.json")).data
+        async function init() {
+            if(fetchedImageData.length == 0){
+                const fetchData = await getImageDataFromDB()
+                setFetchedImageData(fetchData)
+            }
 
-            data.crawled = data.crawled.sort(
-                (a : crawledData , b : crawledData) => b.arcaConId - a.arcaConId
-            )
-
-            setDbData(data)
+            if(searchKeyword == ""){
+                setDisplayImageData(fetchedImageData.slice((currentPage-1) * pageSize,currentPage * pageSize))
+            }else{
+                setDisplayImageData(fetchedImageData.filter((arcaConData) => arcaConData.title.includes(searchKeyword)))
+            }
+            setMaxPage(Math.ceil(fetchedImageData.length / pageSize))
         }
 
-        fetchDB()
-      }, [])
+        init()
+
+      }, [currentPage, fetchedImageData, searchKeyword])
+
+    const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+        setSearchKeyword("");
+        setCurrentPage(value);
+    };
+
+    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchKeyword(event.target.value);
+    };
+
 
   return <>
-      <Stack spacing={2}>
-          <Typography variant="h1"> 아카콘 미러입니다. 순서대로 긁어오는거라 필터링이 안 됨을 밝힙니다!! </Typography>
+      <Head>
+          <title>아카콘 미러</title>
+      </Head>
+      <Stack spacing={2} alignItems="center" my={6}>
+          <Box >
+              <Stack alignItems="center">
+                  <Typography variant="h1">아카콘 미러</Typography>
+                  <Typography variant="subtitle1">순서대로 긁어오는 방식이라, 별도 필터링은 안 됩니다!</Typography>
+              </Stack>
+          </Box>
+          <Box>
+              <Stack direction="row" alignItems="center" spacing={1}>
+                  <Typography> 이름으로 찾기 : </Typography>
+                  <TextField size="small" color="primary" value={searchKeyword} onChange={handleSearchChange}/>
+              </Stack>
+          </Box>
+          <Pagination count={maxPage} page={currentPage} onChange={handlePageChange} color="primary" />
+
           {
-              dbData?.crawled.filter((item) => !item.isDeleted).map((item) => {
+              displayImageData.map((item) => {
                   return <SingleImageList key={item.arcaConId} title={item.title} imageList={
                       item.srcList.map((src) => {
                           return {
-                              img : `https://dqbobx5h4f3nm.cloudfront.net/${item.arcaConId}/${src}`,
-                              title : item.title
+                              src : `https://dqbobx5h4f3nm.cloudfront.net/${item.arcaConId}/${src}`,
+                              alt : item.title
                           }
                       })}/>
               })
           }
+
+          <Pagination count={maxPage} page={currentPage} onChange={handlePageChange} color="primary" />
       </Stack>
     </>
 }

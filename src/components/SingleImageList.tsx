@@ -7,8 +7,8 @@ import {Stack, Typography} from "@mui/material";
 type Props ={
     title : string,
     imageList : {
-        img : string,
-        title : string
+        src : string,
+        alt : string
     }[]
 }
 
@@ -19,18 +19,18 @@ export default function SingleImageList(props : Props) {
             <Typography variant="h6">{props.title}</Typography>
 
             <ImageList sx={{
-                width: 1800,
+                width: "80vw",
                 height: 100,
                 gridAutoFlow: "column",
                 gridTemplateColumns: "repeat(auto-fit, 100px) !important",
                 gridAutoColumns: "minmax(100px, 1fr)"
             }} cols={1} rowHeight={100}>
                 {props.imageList.map((item) => (
-                    <ImageListItem key={item.img}>
+                    <ImageListItem key={item.src}>
                         <Image
                             style={{position: 'absolute'}}
-                            src={`${item.img}`}
-                            alt={item.title}
+                            src={`${item.src}`}
+                            alt={item.alt}
                             loading="lazy"
                             fill
                         />
