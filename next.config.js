@@ -2,7 +2,7 @@
 const isProd = process.env.NODE_ENV === 'production'
 
 const nextConfig = {
-  basePath: isProd ? '/arca-con-mirror' : '',
+  assetPrefix: isProd ? '/your-github-repo-name/' : '',
   reactStrictMode: true,
 
   images: {
