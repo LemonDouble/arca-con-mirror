@@ -72,6 +72,9 @@ interface requestResponse{
 }
 
 async function requestArcaconPage(arcaConId : number) : Promise<requestResponse>{
+
+    console.log(`[requestArcaconPage] download : https://arca.live/e/${arcaConId}`)
+    
     return await axios.get<string>(`https://arca.live/e/${arcaConId}`)
         .then((response) => {
             return {statusCode : response.status, data : response.data}
