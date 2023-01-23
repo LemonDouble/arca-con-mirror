@@ -1,6 +1,7 @@
 name: Run Crawler - Update data
 
 on:
+  push:
   schedule:
     - cron: '*/10 * * * *' # 10분에 한번씩 실행
 
