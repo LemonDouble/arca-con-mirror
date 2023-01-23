@@ -827,6 +827,15 @@
         "658024.png",
         "658025.png"
       ]
+    },
+    {
+      "arcaConId": 55,
+      "isDeleted": false,
+      "title": "가카콘",
+      "srcList": [
+        "657998.png",
+        "658124.png"
+      ]
     }
   ]
 }
