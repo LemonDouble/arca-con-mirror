@@ -2,10 +2,11 @@ import * as React from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import Image from "next/image";
-import {Button, Stack, Typography} from "@mui/material";
+import {Backdrop, Button, CircularProgress, Stack, Typography} from "@mui/material";
 import JSZip from "jszip";
 import axios from "axios";
 import { saveAs } from 'file-saver';
+import {useState} from "react";
 
 type Props ={
     title : string,
@@ -18,7 +19,10 @@ type Props ={
 
 export default function SingleImageList(props : Props) {
 
+    const [isDownload, setIsDownload] = useState<boolean>(false)
+
     async function handleZipDownload(){
+        setIsDownload(true)
         const zip = new JSZip()
 
         const downloadPromise = props.imageList.map(
@@ -33,11 +37,18 @@ export default function SingleImageList(props : Props) {
         await Promise.all(downloadPromise)
 
         const result = await zip.generateAsync({type: "blob"})
-
+        setIsDownload(false)
         await saveAs(result, `${props.title}.zip`)
     }
 
     return (
+        <>
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={isDownload}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
         <Stack spacing={1} direction="column">
             <Stack spacing={1} direction="row">
                 <Typography variant="h6">{props.title}</Typography>
@@ -64,6 +75,6 @@ export default function SingleImageList(props : Props) {
                 ))}
             </ImageList>
         </Stack>
-
+        </>
     );
 }
