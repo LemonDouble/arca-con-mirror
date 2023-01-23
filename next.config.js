@@ -1,12 +1,12 @@
 /** @type {import('next').NextConfig} */
 
 // https://www.viget.com/articles/host-build-and-deploy-next-js-projects-on-github-pages/
-const isGithubActions = process.env.GITHUB_ACTIONS || false
+const production = process.env.NODE_ENV === "production";
 let assetPrefix = ''
 let basePath = '/'
 
-if (isGithubActions) {
-  const repo = process.env.GITHUB_REPOSITORY.replace(/.*?\//, '')
+if (production) {
+  const repo = "arca-con-mirror"
 
   assetPrefix = `/${repo}/`
   basePath = `/${repo}`
