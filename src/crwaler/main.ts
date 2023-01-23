@@ -8,11 +8,9 @@ async function main(){
     
     for(let arcaConId = 1; arcaConId < 100000; arcaConId++){
         if(!crawledArcaconIdSet.has(arcaConId)){
-            await crwalAcacon(arcaConId, db)
-            crawlCount++;
-            if(crawlCount > 3){
-                break;
-            }
+            conosle.log(`arcacon ID : ${arcaconId}`);
+            await crwalAcacon(arcaConId, db);
+            break;
         }
     }
 
