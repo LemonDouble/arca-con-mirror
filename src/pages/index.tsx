@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
-import { Stack } from '@mui/material';
+import {Stack, Typography} from '@mui/material';
 import SingleImageList from "@/components/SingleImageList";
 
 export interface database {
@@ -20,7 +20,11 @@ export default function Home() {
   useEffect(() => {
         async function fetchDB() {
           const data = (await axios.get("https://raw.githubusercontent.com/LemonDouble/arca-con-mirror/main/src/database/db.json")).data
-            console.log(data)
+
+            data.crawled = data.crawled.sort(
+                (a : crawledData , b : crawledData) => b.arcaConId - a.arcaConId
+            )
+
             setDbData(data)
         }
 
@@ -29,6 +33,7 @@ export default function Home() {
 
   return <>
       <Stack spacing={2}>
+          <Typography variant="h1"> 아카콘 미러입니다. 순서대로 긁어오는거라 필터링이 안 됨을 밝힙니다!! </Typography>
           {
               dbData?.crawled.filter((item) => !item.isDeleted).map((item) => {
                   return <SingleImageList key={item.arcaConId} title={item.title} imageList={
