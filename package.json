@@ -1,12 +1,20 @@
 {
   "name": "dc-con-mirror",
   "version": "1.0.0",
-  "main": "crwaler/index.js",
+  "main": "src/crwaler/index.js",
   "license": "MIT",
-  "type": "module",
+  "scripts": {
+    "start": "ts-node ./src/crwaler/main.ts"
+  },
   "dependencies": {
-    "aws-sdk": "^2.1299.0",
+    "@aws-sdk/client-s3": "^3.254.0",
+    "@aws-sdk/lib-storage": "^3.254.0",
+    "@types/node": "^18.11.18",
     "axios": "^1.2.3",
-    "cheerio": "^1.0.0-rc.12"
+    "cheerio": "^1.0.0-rc.12",
+    "typescript": "^4.9.4"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.1"
   }
 }
