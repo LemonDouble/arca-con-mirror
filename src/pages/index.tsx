@@ -29,7 +29,7 @@ export default function Home() {
         }
 
         fetchDB()
-      })
+      }, [])
 
   return <>
       <Stack spacing={2}>
