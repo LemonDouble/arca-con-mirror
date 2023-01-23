@@ -6,8 +6,11 @@ on:
     - cron: '*/10 * * * *' # 10분에 한번씩 실행
 
 jobs:
-  build:
+  crawl:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v3
