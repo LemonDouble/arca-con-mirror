@@ -44,20 +44,45 @@ async function parseMetadata(origHtmlString : string) {
     const title = $('meta[name=title]').attr('content')!
 
     const imageList = $('img.emoticon').map((i, item) => {
+
+        const src = $(item).attr('src')
+        const dataId = Number($(item).attr('data-id'))
+        const extension = $(item).attr('src')?.split(".").at(-1)
+
+        if(src === undefined || dataId === undefined || extension === undefined){
+            return
+        }
+
         return {
-            src : "https:" + $(item).attr('src'),
-            dataId : Number($(item).attr('data-id')),
-            extension : $(item).attr('src')?.split(".").at(-1)!
+            src : "https:" + src,
+            dataId : dataId,
+            extension : extension
         }
     }).toArray()
 
     const videoList = $('video.emoticon').map((i, item) => {
+        const src = $(item).attr('src')
+        const dataId = Number($(item).attr('data-id'))
+        const extension = $(item).attr('src')?.split(".").at(-1)
+
+        if(src === undefined || dataId === undefined || extension === undefined){
+            return
+        }
+
         return {
-            src : "https:" + $(item).attr('data-src'),
-            dataId : Number($(item).attr('data-id')),
-            extension : $(item).attr('src')?.split(".").at(-1)!
+            src : "https:" + src,
+            dataId : dataId,
+            extension : extension
         }
     }).toArray()
+
+    console.log(`[parseMetadata] imageList`)
+    console.log(imageList)
+    console.log("--------------------------")
+    console.log(`[parseMetadata] videoList`)
+    console.log(videoList)
+    console.log("--------------------------")
+
 
     return {
         title : title,
