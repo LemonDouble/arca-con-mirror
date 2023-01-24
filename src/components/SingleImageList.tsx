@@ -80,7 +80,7 @@ export default function SingleImageList(props : Props) {
                 gridAutoColumns: "minmax(100px, 1fr)",
             }} cols={1} rowHeight={100}>
                 {props.imageList.map((item) => (
-                    <ImageListItem key={item.src}>
+                    <ImageListItem key={item.src} sx={{position : "relative"}}>
                         {item.src.split(".").at(-1) !== "mp4" &&
                             <Image
                             style={{position: 'absolute'}}

@@ -24,12 +24,16 @@ export default function Home() {
             // Image Render는 오래 걸리므로, 지연 처리
             startTransition(() => {
                 if (searchKeyword == "") {
-                    setDisplayImageData(fetchedImageData.slice((currentPage - 1) * pageSize, currentPage * pageSize))
+                    const allPage = fetchedImageData
+                    setDisplayImageData(allPage.slice((currentPage - 1) * pageSize, currentPage * pageSize))
+                    setMaxPage(Math.ceil(allPage.length / pageSize))
                 } else {
-                    setDisplayImageData(fetchedImageData.filter((arcaConData) => arcaConData.title.includes(searchKeyword)))
+                    const withKeywordPage = fetchedImageData.filter((arcaConData) => arcaConData.title.includes(searchKeyword))
+                    setDisplayImageData(withKeywordPage.slice((currentPage - 1) * pageSize, currentPage * pageSize) )
+                    setMaxPage(Math.ceil(withKeywordPage.length / pageSize))
                 }
+
             });
-            setMaxPage(Math.ceil(fetchedImageData.length / pageSize))
         }
 
         const timer = setTimeout(() => {
@@ -41,7 +45,6 @@ export default function Home() {
       }, [currentPage, fetchedImageData, searchKeyword])
 
     const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
-        setSearchKeyword("");
         setCurrentPage(value);
     };
 
@@ -50,7 +53,6 @@ export default function Home() {
     };
 
     const handlePageTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchKeyword("");
         setCurrentPage(Number(event.target.value))
     };
 
