@@ -42,6 +42,11 @@ export default function Home() {
         setSearchKeyword(event.target.value);
     };
 
+    const handlePageTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchKeyword("");
+        setCurrentPage(Number(event.target.value))
+    };
+
 
   return <>
       <Head>
@@ -76,6 +81,11 @@ export default function Home() {
           }
 
           <Pagination count={maxPage} page={currentPage} onChange={handlePageChange} color="primary" />
+
+          <Stack direction="row" alignItems="center" spacing={1}>
+              <Typography> 페이지로 바로 이동 (숫자 입력): </Typography>
+              <TextField size="small" color="primary" type="number" value={currentPage} onChange={handlePageTextChange}/>
+          </Stack>
       </Stack>
     </>
 }
