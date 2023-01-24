@@ -89,7 +89,7 @@ export default function SingleImageList(props : Props) {
                             loading="lazy"
                             fill
                         />}
-                        {
+                        {item.src.split(".").at(-1) === "mp4" &&
                             <video autoPlay loop muted playsInline style={{position: 'absolute', width:"100px"}}>
                                 <source src={item.src} />
                             </video>
