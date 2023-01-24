@@ -64,13 +64,19 @@ export default function SingleImageList(props : Props) {
             }} cols={1} rowHeight={100}>
                 {props.imageList.map((item) => (
                     <ImageListItem key={item.src}>
-                        <Image
+                        {item.src.split(".").at(-1) !== "mp4" &&
+                            <Image
                             style={{position: 'absolute'}}
                             src={`${item.src}`}
                             alt={item.alt}
                             loading="lazy"
                             fill
-                        />
+                        />}
+                        {
+                            <video autoPlay loop style={{position: 'absolute', width:"100px"}}>
+                                <source src={item.src} />
+                            </video>
+                        }
                     </ImageListItem>
                 ))}
             </ImageList>
