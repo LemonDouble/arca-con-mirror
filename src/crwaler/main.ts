@@ -13,7 +13,7 @@ async function main(){
             await crwalAcacon(arcaConId, db);
             crawlCount++;
 
-            if(crawlCount > 3){
+            if(crawlCount >= 5){
                 break;
             }
         }

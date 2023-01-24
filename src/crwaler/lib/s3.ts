@@ -17,9 +17,9 @@ export async function CopyImageToS3(arcaCondId: number, imageMetaData : ImageMet
     const uploadStream = () => {
         const pass = new stream.PassThrough();
         promise = new Upload({
-            client: new S3Client({region : "ap-northeast-1"}),
+            client: new S3Client({region : process.env.AWS_REGION}),
             params :{
-                Bucket : "arca-con-mirror",
+                Bucket : process.env.S3_BUCKET_NAME,
                 Key: `${arcaCondId}/${imageMetaData.dataId}.${imageMetaData.extension}`,
                 Body: pass,
                 ContentType: contentType,
