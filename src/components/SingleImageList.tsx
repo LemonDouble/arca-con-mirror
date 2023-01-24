@@ -73,7 +73,7 @@ export default function SingleImageList(props : Props) {
                             fill
                         />}
                         {
-                            <video autoPlay loop style={{position: 'absolute', width:"100px"}}>
+                            <video autoPlay loop muted playsInline style={{position: 'absolute', width:"100px"}}>
                                 <source src={item.src} />
                             </video>
                         }
