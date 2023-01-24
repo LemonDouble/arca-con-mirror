@@ -2,7 +2,7 @@ name: Run Crawler - Update data
 
 on:
   schedule:
-    - cron: '*/10 * * * *' # 10분에 한번씩 실행
+    - cron: '*/5 * * * *' # 10분에 한번씩 실행
 
 jobs:
   crawl:
