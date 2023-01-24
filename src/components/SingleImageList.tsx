@@ -2,7 +2,7 @@ import * as React from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import Image from "next/image";
-import {Backdrop, Button, CircularProgress, Stack, Typography} from "@mui/material";
+import {Alert, Backdrop, Button, CircularProgress, Snackbar, Stack, Typography} from "@mui/material";
 import JSZip from "jszip";
 import axios from "axios";
 import { saveAs } from 'file-saver';
@@ -20,29 +20,46 @@ type Props ={
 export default function SingleImageList(props : Props) {
 
     const [isDownload, setIsDownload] = useState<boolean>(false)
+    const [isError, setIsError] = useState<boolean>(false);
 
     async function handleZipDownload(){
         setIsDownload(true)
-        const zip = new JSZip()
+        try{
+            const zip = new JSZip()
 
-        const downloadPromise = props.imageList.map(
-            (image) => image.src
-        ).map(
-            async (src) => {
+            const downloadPromise = props.imageList.map(
+                (image) => image.src
+            ).map(
+                async (src) => {
                     const data = (await axios.get(src, {responseType: "arraybuffer"})).data
                     zip.file(src.split("/").at(-1)!, data)
-            }
-        )
+                }
+            )
 
-        await Promise.all(downloadPromise)
+            await Promise.all(downloadPromise)
 
-        const result = await zip.generateAsync({type: "blob"})
+            const result = await zip.generateAsync({type: "blob"})
+            await saveAs(result, `${props.title}.zip`)
+        }catch (e) {
+            setIsError(true)
+        }
         setIsDownload(false)
-        await saveAs(result, `${props.title}.zip`)
     }
+    const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setIsError(false);
+    };
 
     return (
         <>
+            <Snackbar open={isError} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{vertical: "top", horizontal: "center"}}>
+                <Alert variant="filled" onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                    다운로드 중 에러가 발생했습니다. 잠시 후 다시 해 주세요.
+                </Alert>
+            </Snackbar>
             <Backdrop
                 sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
                 open={isDownload}
