@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {startTransition, useEffect, useState} from "react";
 import {Pagination, Stack, TextField, Typography} from '@mui/material';
 import SingleImageList from "@/components/SingleImageList";
 import {Box} from "@mui/system";
@@ -21,15 +21,22 @@ export default function Home() {
                 setFetchedImageData(fetchData)
             }
 
-            if(searchKeyword == ""){
-                setDisplayImageData(fetchedImageData.slice((currentPage-1) * pageSize,currentPage * pageSize))
-            }else{
-                setDisplayImageData(fetchedImageData.filter((arcaConData) => arcaConData.title.includes(searchKeyword)))
-            }
+            // Image Render는 오래 걸리므로, 지연 처리
+            startTransition(() => {
+                if (searchKeyword == "") {
+                    setDisplayImageData(fetchedImageData.slice((currentPage - 1) * pageSize, currentPage * pageSize))
+                } else {
+                    setDisplayImageData(fetchedImageData.filter((arcaConData) => arcaConData.title.includes(searchKeyword)))
+                }
+            });
             setMaxPage(Math.ceil(fetchedImageData.length / pageSize))
         }
 
-        init()
+        const timer = setTimeout(() => {
+            init()
+        }, 500)
+
+      return () => clearTimeout(timer)
 
       }, [currentPage, fetchedImageData, searchKeyword])
 
