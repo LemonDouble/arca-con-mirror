@@ -15,12 +15,18 @@ export default function Home() {
     const [searchKeyword, setSearchKeyword] = useState<string>("")
 
   useEffect(() => {
-        async function init() {
-            if(fetchedImageData.length == 0){
-                const fetchData = await getImageDataFromDB()
-                setFetchedImageData(fetchData)
-            }
 
+      async function init(){
+          if(fetchedImageData.length == 0){
+              const fetchData = await getImageDataFromDB()
+              setFetchedImageData(fetchData)
+              const allPage = fetchedImageData
+              setDisplayImageData(allPage.slice((currentPage - 1) * pageSize, currentPage * pageSize))
+              setMaxPage(Math.ceil(allPage.length / pageSize))
+          }
+      }
+
+        async function handlePageUpdate() {
             // Image Render는 오래 걸리므로, 지연 처리
             startTransition(() => {
                 if (searchKeyword == "") {
@@ -32,12 +38,13 @@ export default function Home() {
                     setDisplayImageData(withKeywordPage.slice((currentPage - 1) * pageSize, currentPage * pageSize) )
                     setMaxPage(Math.ceil(withKeywordPage.length / pageSize))
                 }
-
             });
         }
 
+        init()
+
         const timer = setTimeout(() => {
-            init()
+            handlePageUpdate()
         }, 500)
 
       return () => clearTimeout(timer)
