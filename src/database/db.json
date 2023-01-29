@@ -102408,6 +102408,49 @@
         "2005212.png",
         "2005213.png"
       ]
+    },
+    {
+      "arcaConId": 3005,
+      "isDeleted": false,
+      "title": "두근두근 스페셜 에디션!!",
+      "srcList": [
+        "2005243.png",
+        "2005250.png",
+        "2005252.png",
+        "2005275.png",
+        "2005282.png",
+        "2005291.png",
+        "2005300.png",
+        "2005303.png",
+        "2005305.png",
+        "2005308.png",
+        "2005312.png",
+        "2005316.png"
+      ]
+    },
+    {
+      "arcaConId": 3006,
+      "isDeleted": true,
+      "title": "",
+      "srcList": []
+    },
+    {
+      "arcaConId": 3007,
+      "isDeleted": true,
+      "title": "",
+      "srcList": []
+    },
+    {
+      "arcaConId": 3008,
+      "isDeleted": true,
+      "title": "",
+      "srcList": []
+    },
+    {
+      "arcaConId": 3009,
+      "isDeleted": true,
+      "title": "",
+      "srcList": []
     }
   ]
 }
