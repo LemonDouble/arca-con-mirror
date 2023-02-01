@@ -40,7 +40,7 @@ export async function CopyImageToS3(arcaCondId: number, imageMetaData : ImageMet
             contentType = response.headers['content-type']!;
             response.data.pipe(uploadStream());
         }
-    });
+    }).catch(() => {});
 
     return promise
 }
