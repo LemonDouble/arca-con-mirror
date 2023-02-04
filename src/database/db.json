@@ -162891,6 +162891,71 @@
         "4111564.png",
         "4111565.png"
       ]
+    },
+    {
+      "arcaConId": 4950,
+      "isDeleted": false,
+      "title": "정당 로고",
+      "srcList": [
+        "4111205.png",
+        "4111206.png",
+        "4111209.png",
+        "4111220.png",
+        "4111223.png",
+        "4111228.png",
+        "4111232.png",
+        "4111235.png",
+        "4111241.png",
+        "4111245.png",
+        "4111248.png",
+        "4111250.png",
+        "4111272.png",
+        "4111276.png",
+        "4111291.png",
+        "4111299.png",
+        "4111304.png",
+        "4111310.png",
+        "4111317.png",
+        "4111319.png",
+        "4111322.png",
+        "4111323.png",
+        "4111325.png",
+        "4111333.png",
+        "4111335.png",
+        "4111336.png",
+        "4111345.png",
+        "4111385.png",
+        "4111390.png",
+        "4111394.png",
+        "4111396.png",
+        "4111401.png",
+        "4111440.png",
+        "4111443.png"
+      ]
+    },
+    {
+      "arcaConId": 4951,
+      "isDeleted": true,
+      "title": "",
+      "srcList": []
+    },
+    {
+      "arcaConId": 4952,
+      "isDeleted": true,
+      "title": "",
+      "srcList": []
+    },
+    {
+      "arcaConId": 4953,
+      "isDeleted": true,
+      "title": "",
+      "srcList": []
+    },
+    {
+      "arcaConId": 4954,
+      "isDeleted": true,
+      "title": "",
+      "srcList": []
     }
   ]
 }
