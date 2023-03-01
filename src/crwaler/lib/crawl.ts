@@ -115,7 +115,7 @@ async function requestArcaconPage(arcaConId : number) : Promise<requestResponse>
 
             if(error.response.status === 429){
                 console.error(`[requestArcaconPage] Too Many Requests. 나중에 다시 시도해 보죠!`)
-                process.exit(1)
+                process.exit(0)
             }
 
             throw Error(`[requestArcaconPage] 서버와의 통신에 실패했습니다. response code : ${error.response.status}`)
