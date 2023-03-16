@@ -1,11 +1,12 @@
 import React, {startTransition, useEffect, useState} from "react";
-import {Pagination, Stack, TextField, Typography} from '@mui/material';
+import {Backdrop, CircularProgress, Pagination, Stack, TextField, Typography} from '@mui/material';
 import SingleImageList from "@/components/SingleImageList";
 import {Box} from "@mui/system";
 import {ArcaConData, getImageDataFromDB} from "@/common/api";
 import Head from 'next/head';
 
 export default function Home() {
+    const [isLoading, setIsLoading] = useState<boolean>(false)
     const [fetchedImageData, setFetchedImageData] = useState<ArcaConData[]>([])
     const [displayImageData, setDisplayImageData] = useState<ArcaConData[]>([])
     const [currentPage, setCurrentPage] = useState<number>(1)
@@ -18,11 +19,13 @@ export default function Home() {
 
       async function init(){
           if(fetchedImageData.length == 0){
+              setIsLoading(true)
               const fetchData = await getImageDataFromDB()
               setFetchedImageData(fetchData)
               const allPage = fetchedImageData
               setDisplayImageData(allPage.slice((currentPage - 1) * pageSize, currentPage * pageSize))
               setMaxPage(Math.ceil(allPage.length / pageSize))
+              setTimeout(() => setIsLoading(false), 1000)
           }
       }
 
@@ -40,7 +43,6 @@ export default function Home() {
                 }
             });
         }
-
         init()
 
         const timer = setTimeout(() => {
@@ -69,6 +71,13 @@ export default function Home() {
           <title>아카콘 미러</title>
       </Head>
       <Stack spacing={2} alignItems="center" my={6}>
+          <Backdrop
+              sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+              open={isLoading}
+              onClick={() => setIsLoading(false)}
+          >
+              <CircularProgress color="inherit" />
+          </Backdrop>
           <Box >
               <Stack alignItems="center" mx={2}>
                   <Typography variant="h2">아카콘 미러</Typography>
