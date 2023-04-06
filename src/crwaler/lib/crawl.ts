@@ -47,7 +47,7 @@ async function parseMetadata(origHtmlString : string) {
 
         const src = $(item).attr('src')
         const dataId = Number($(item).attr('data-id'))
-        const extension = $(item).attr('src')?.split(".").at(-1)
+        const extension = $(item).attr('src')?.split(".").at(-1)?.split("?").at(0)
 
         if(src === undefined || dataId === undefined || extension === undefined){
             return
@@ -63,7 +63,7 @@ async function parseMetadata(origHtmlString : string) {
     const videoList = $('video.emoticon').map((i, item) => {
         const src = $(item).attr('data-src')
         const dataId = Number($(item).attr('data-id'))
-        const extension = $(item).attr('data-src')?.split(".").at(-1)
+        const extension = $(item).attr('data-src')?.split(".").at(-1)?.split("?").at(0)
 
         if(src === undefined || dataId === undefined || extension === undefined){
             return
