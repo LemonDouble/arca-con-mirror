@@ -7,6 +7,10 @@ export async function crwalAcacon(arcaConId : number, database : database) {
 
     const request = await requestArcaconPage(arcaConId)
 
+    if(request == null){
+        return;
+    }
+
     if(request.statusCode == 404){
         database.crawled.push({
             arcaConId: arcaConId,
@@ -96,7 +100,7 @@ interface requestResponse{
     data : string
 }
 
-async function requestArcaconPage(arcaConId : number) : Promise<requestResponse>{
+async function requestArcaconPage(arcaConId : number) : Promise<requestResponse | null>{
 
     console.log(`[requestArcaconPage] download : https://arca.live/e/${arcaConId}`)
     
@@ -110,7 +114,9 @@ async function requestArcaconPage(arcaConId : number) : Promise<requestResponse>
                     return {statusCode : 404, data : ""}
                 }
 
-                throw Error(`[requestArcaconPage] 아직 발매되지 않은 이모티콘 ID입니다.`)
+
+                console.log(`[requestArcaconPage] 아직 발매되지 않은 이모티콘 ID입니다.`)
+                return null;
             }
 
             if(error.response.status === 429){
