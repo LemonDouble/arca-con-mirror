@@ -1,0 +1,39 @@
+name: Run Crawler - Update data
+
+on:
+  schedule:
+    - cron: '*/5 * * * *' # 5분에 한번씩 실행
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: main
+        
+      - name: Configure Github Actions AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.AWS_STS_ROLE }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          
+      - name: Run Crawler
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'yarn'
+      - run: yarn install
+      - run: yarn start
+        env:
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
+          
+      - name : Commit and Push (Update DB)
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update Crawled Data
