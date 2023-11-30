@@ -20,7 +20,7 @@ export async function CopyImageToS3(arcaCondId: number, imageMetaData : ImageMet
             client: new S3Client({region : process.env.AWS_REGION, endpoint : process.env.AWS_ENDPOINT_URL }),
             params :{
                 Bucket : process.env.S3_BUCKET_NAME,
-                Key: `${arcaCondId}/${imageMetaData.dataId}.${imageMetaData.extension}`,
+                Key: `${arcaCondId}/arca-con-mirror/${imageMetaData.dataId}.${imageMetaData.extension}`,
                 Body: pass,
                 ContentType: contentType,
             }
