@@ -98,7 +98,7 @@ export default function Home() {
                   return <SingleImageList key={item.arcaConId} title={item.title} imageList={
                       item.srcList.map((src) => {
                           return {
-                              src : `https://dqbobx5h4f3nm.cloudfront.net/${item.arcaConId}/${src}`,
+                              src : `https://cdn.lemondouble.com/arca-con-mirror/${item.arcaConId}/${src}`,
                               alt : item.title
                           }
                       })}/>
