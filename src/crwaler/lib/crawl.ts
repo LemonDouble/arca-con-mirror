@@ -1,24 +1,23 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
-import {database} from "../../database/database";
 import {CopyImageToS3} from "./s3";
+import {crawledData} from "../../database/database";
 
-export async function crwalAcacon(arcaConId : number, database : database) {
+export async function crwalAcacon(arcaConId : number) : Promise<crawledData> {
 
     const request = await requestArcaconPage(arcaConId)
 
     if(request == null){
-        return;
+        throw new Error("[crwalAcacon] Response 값이 없습니다!")
     }
 
     if(request.statusCode == 404){
-        database.crawled.push({
+        return {
             arcaConId: arcaConId,
             isDeleted : true,
             title : "",
             srcList : []
-        })
-        return;
+        }
     }
 
     const parsedMetadata = await parseMetadata(request.data)
@@ -31,15 +30,14 @@ export async function crwalAcacon(arcaConId : number, database : database) {
         parsedMetadata.video.map((data) => CopyImageToS3(arcaConId, data))
     )
 
-    database.crawled.push({
+    return{
         arcaConId: arcaConId,
         isDeleted : false,
         title : parsedMetadata.title,
         srcList : parsedMetadata.image.map(it => `${it.dataId}.${it.extension}`).concat(
             parsedMetadata.video.map(it => `${it.dataId}.${it.extension}`)
         )
-    })
-    return
+    }
 }
 
 async function parseMetadata(origHtmlString : string) {

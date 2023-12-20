@@ -1,5 +1,6 @@
-import {loadDatabase, saveDatabase} from "../database/database";
+import {crawledData, loadDatabase, saveDatabase} from "../database/database";
 import {crwalAcacon} from "./lib/crawl";
+import axios from "axios";
 
 async function main(){
     const db = await loadDatabase()
@@ -7,10 +8,13 @@ async function main(){
 
     let crawlCount = 0;
 
+    const newArcaconList : crawledData[] = []
+
     for(let arcaConId = 1; arcaConId < 100000; arcaConId++){
         if(!crawledArcaconIdSet.has(arcaConId)){
             console.log(`arcacon ID : ${arcaConId}`);
-            await crwalAcacon(arcaConId, db);
+            const newArcacon = await crwalAcacon(arcaConId);
+            newArcaconList.push(newArcacon!)
             crawlCount++;
 
             if(crawlCount >= 5){
@@ -19,6 +23,12 @@ async function main(){
         }
     }
 
+    await axios.post(process.env.REGISTER_URL!, {
+        api_key : process.env.REGISTER_API_KEY,
+        data : newArcaconList
+    })
+
+    db.crawled.push(...newArcaconList)
     await saveDatabase(db)
 }
 
