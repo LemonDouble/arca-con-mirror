@@ -32,6 +32,8 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_ACCESS_SECRET }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
+          REGISTER_URL: ${{ secrets.REGISTER_URL }}
+          REGISTER_API_KEY: ${{ secrets.REGISTER_API_KEY }}
 
       - name : Commit and Push (Update DB)
         uses: stefanzweifel/git-auto-commit-action@v4
