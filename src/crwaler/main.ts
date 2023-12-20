@@ -25,7 +25,14 @@ async function main(){
 
     await axios.post(process.env.REGISTER_URL!, {
         api_key : process.env.REGISTER_API_KEY,
-        data : newArcaconList
+        data : newArcaconList.map(it => {
+            return {
+                arca_con_id : it.arcaConId,
+                is_deleted : it.isDeleted,
+                title : it.title,
+                src_list: it.srcList
+            }
+        })
     })
 
     db.crawled.push(...newArcaconList)
