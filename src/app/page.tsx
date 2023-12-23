@@ -50,12 +50,10 @@ export default function Home() {
         <div id="container" className="h-full xl:mx-[360px] flex flex-col items-center">
             <span className="text-3xl xl:text-6xl font-extrabold text-black-1 mt-12 text-nowrap">아카콘 미러</span>
             <span className="text-xl xl:text-3xl font-extrabold text-black-3 mt-3 text-nowrap">그런데 이제 대사로도 검색이 되는</span>
-            <div className="mt-9 w-full">
-                <SearchBar
-                    value={searchText}
-                    onChange={(e) => setSearchText(e.target.value)}
-                />
-            </div>
+            <SearchBar
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+            />
             <div id="stack" className="mt-2 flex flex-col space-y-2 mx-2">
                 {searchResult.hits.map(item => (
                     <div className="xl:w-[790px] p-2 xl:p-8 flex flex-row space-x-5 bg-white-1 border-2 border-b-black-1 rounded-2xl" key={item.url}>
