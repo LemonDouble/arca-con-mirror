@@ -58,8 +58,8 @@ export default function Home() {
             </div>
             <div id="stack" className="mt-2 flex flex-col space-y-2">
                 {searchResult.hits.map(item => (
-                    <div className="w-[790px] p-8 flex flex-row space-x-5 bg-white-1 border-2 border-b-black-1 rounded-2xl">
-                        <Image src={item.url} alt={"아카콘 이미지"} key={item.url} width={100} height={100} />
+                    <div className="w-[790px] p-8 flex flex-row space-x-5 bg-white-1 border-2 border-b-black-1 rounded-2xl" key={item.url}>
+                        <Image src={item.url} alt={"아카콘 이미지"} width={100} height={100} />
                         <div className="flex flex-col grow">
                             <span className="text-2xl font-bold text-black-1">{item.con_title}</span>
                             <Link href={`https://arca.live/e/${item.con_number}`} target="_blank">
