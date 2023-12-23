@@ -22,3 +22,9 @@
           'Segoe UI Symbol',
           sans-serif;
 }
+
+search-highlight{
+        display: inline;
+        box-shadow: inset 0 -10px 0 #FDD940;
+        /*-10px은 highlight의 두께*/
+}
