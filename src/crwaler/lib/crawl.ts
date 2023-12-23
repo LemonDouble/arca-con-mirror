@@ -3,12 +3,13 @@ import * as cheerio from "cheerio";
 import {CopyImageToS3} from "./s3";
 import {crawledData} from "../../database/database";
 
-export async function crwalAcacon(arcaConId : number) : Promise<crawledData> {
+export async function crwalAcacon(arcaConId : number) : Promise<crawledData | null> {
 
     const request = await requestArcaconPage(arcaConId)
 
     if(request == null){
-        throw new Error("[crwalAcacon] Response 값이 없습니다!")
+        // 이제 긁어올 콘이 없는 경우
+        return null
     }
 
     if(request.statusCode == 404){

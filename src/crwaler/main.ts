@@ -14,7 +14,9 @@ async function main(){
         if(!crawledArcaconIdSet.has(arcaConId)){
             console.log(`arcacon ID : ${arcaConId}`);
             const newArcacon = await crwalAcacon(arcaConId);
-            newArcaconList.push(newArcacon!)
+            if(newArcacon){
+                newArcaconList.push(newArcacon)
+            }
             crawlCount++;
 
             if(crawlCount >= 5){
