@@ -42,7 +42,7 @@ export default function Home() {
     }, [throttledInputText]);
 
   return (
-    <main className="w-screen h-auto min-h-screen">
+    <main className="w-screen h-auto min-h-screen overflow-hidden">
         <header className="w-screen h-[80px] bg-lemon-yellow px-4 flex flex-row space-x-3 items-center">
             <LemonLogo width={32} height={32} />
             <span className="text-2xl font-extrabold">LemonDouble</span>
