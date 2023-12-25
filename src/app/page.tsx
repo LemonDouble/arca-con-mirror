@@ -28,7 +28,7 @@ export default function Home() {
                     "attributesToHighlight" :["text"],
                     "highlightPreTag": "<search-highlight>",
                     "highlightPostTag": "</search-highlight>",
-                    "limit": 21,
+                    "limit": 101,
                     "offset": 0
                 })
             })
