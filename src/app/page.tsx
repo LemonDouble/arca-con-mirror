@@ -20,7 +20,7 @@ export default function Home() {
                 method : "POST",
                 headers: {
                     'Content-Type' : 'application/json',
-                    'Authorization' : 'Bearer dce2ea6d58c7364c4964c0911cdfb3f8bc966d218b500f98ff4e7cd45b3a6a87'
+                    'Authorization' : 'Bearer 86243c564560e95582ea2b5bc7615cb1533f64581c64c8514b167e01486ab5c1'
                 },
                 body : JSON.stringify({
                     "q": throttledInputText,
