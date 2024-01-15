@@ -4,7 +4,7 @@ import {LemonLogo} from "@/components/icons/LemonLogo";
 import React, {useEffect, useState} from "react";
 import {useThrottle} from "@/hooks/useThrottle";
 import Image from "next/image";
-import {SearchResult} from "@/types";
+import {SearchResult, StatusResult} from "@/types";
 import Link from "next/link";
 
 export default function Home() {
@@ -13,6 +13,7 @@ export default function Home() {
     const [searchResult, setSearchResult] = useState<SearchResult>({
         hits : [], query : "", processingTimeMs : 0, limit : 0, offset : 0, estimatedTotalHits :0
     })
+    const [totalCount, setTotalCount] = useState(0)
 
     useEffect(() => {
         async function handleSearchTextChange(){
@@ -20,7 +21,7 @@ export default function Home() {
                 method : "POST",
                 headers: {
                     'Content-Type' : 'application/json',
-                    'Authorization' : 'Bearer 86243c564560e95582ea2b5bc7615cb1533f64581c64c8514b167e01486ab5c1'
+                    'Authorization' : 'Bearer 6650f03192cafd48c3cce16810b0cf588690e501eb883ac0b5ae6b8df03d68ef'
                 },
                 body : JSON.stringify({
                     "q": throttledInputText,
@@ -34,10 +35,23 @@ export default function Home() {
             })
             const result : SearchResult = await response.json()
             setSearchResult(result)
-            console.log(result)
+        }
+
+        async function handleTotalCount(){
+            const response = await fetch("https://meili.rabbitprotocol.com/indexes/arca-con/stats", {
+                method : "GET",
+                headers: {
+                    'Content-Type' : 'application/json',
+                    'Authorization' : 'Bearer 6650f03192cafd48c3cce16810b0cf588690e501eb883ac0b5ae6b8df03d68ef'
+                }
+            })
+
+            const result : StatusResult = await response.json()
+            setTotalCount(result.numberOfDocuments)
         }
 
         handleSearchTextChange()
+        handleTotalCount()
 
     }, [throttledInputText]);
 
@@ -50,6 +64,8 @@ export default function Home() {
         <div id="container" className="h-full xl:mx-[360px] flex flex-col items-center">
             <span className="text-3xl xl:text-6xl font-extrabold text-black-1 mt-12 text-nowrap">아카콘 미러</span>
             <span className="text-xl xl:text-3xl font-extrabold text-black-3 mt-3 text-nowrap">그런데 이제 대사로도 검색이 되는</span>
+            <br />
+            <span className="text-base text-black-1"> 현재 검색가능한 콘 개수 : {totalCount}개</span>
             <SearchBar
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}

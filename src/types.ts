@@ -25,3 +25,18 @@ export interface Formatted {
     text: string
     confidence: string
 }
+
+export interface StatusResult {
+    numberOfDocuments: number
+    isIndexing: boolean
+    fieldDistribution: FieldDistribution
+}
+
+export interface FieldDistribution {
+    con_number: number
+    con_title: number
+    confidence: number
+    text: number
+    uid: number
+    url: number
+}
