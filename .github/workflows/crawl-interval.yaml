@@ -2,8 +2,8 @@ name: Run Crawler - Update data
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '*/5 * * * *' # 5분에 한번씩 실행
+#  schedule:
+#    - cron: '*/5 * * * *' # 5분에 한번씩 실행
 
 jobs:
   crawl:
